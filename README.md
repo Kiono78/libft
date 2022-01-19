@@ -13,13 +13,21 @@ This Library is in line with the guidelines of [42 Norm version 3](./.en.norm.pd
 
 In the parent directory:
 
-'''shell
+```shell
 make
-'''
-'''shell
+```
+```shell
 make bonus
-'''
+```
 
+Other tasks defined in the makefile
+
+| Commande       	|  Actions 							|
+|----------------	|----------							|
+| `make`      	 	| Compile .c and create libft.a  	|
+| `make clean`    	| Delete .o							|
+| `make flcean`  	| clean and rm libft.a.  			|
+| `make re`     	| fclean and make		 			|
 
 ### `<ctype.h>` library
 
