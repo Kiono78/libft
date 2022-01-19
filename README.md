@@ -29,6 +29,8 @@ Other tasks defined in the makefile
 | `make flcean`  	| clean and rm libft.a.  			|
 | `make re`     	| fclean and make		 			|
 
+## Function description
+
 ### `<ctype.h>` library
 
 * [`ft_isascii`](ft_isascii.c)	- test for ASCII character.
