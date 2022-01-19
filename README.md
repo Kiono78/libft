@@ -1,6 +1,5 @@
 # LIBFT - Create your own library
-#### 42 Lyon
-#### 2021
+#### 42 Lyon 2021
 
 ## Subject
 
@@ -10,7 +9,17 @@ For detailed information refers to the [subject](./libft.en.subject.pdf).
 
 This Library is in line with the guidelines of [42 Norm version 3](./.en.norm.pdf)
 
-## 
+## Compilation
+
+In the parent directory:
+
+'''shell
+make
+'''
+'''shell
+make bonus
+'''
+
 
 ### `<ctype.h>` library
 
@@ -62,7 +71,7 @@ This Library is in line with the guidelines of [42 Norm version 3](./.en.norm.pd
 * [`ft_split`](ft_split.c)				- split string, with specified character as delimiter, into an array of strings.
 * [`ft_strmapi`](ft_strmapi.c)			- create new string from modifying string with specified function.
 
-### Linked list functions
+### Linked list functions (make bonus)
 
 * [`ft_lstnew`](ft_lstnew.c)				- create new list.
 * [`ft_lstsize`](ft_lstsize.c)				- count elements of a list.
