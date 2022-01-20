@@ -20,8 +20,6 @@ make
 make bonus
 ```
 
-Other tasks defined in the makefile
-
 | Commande       	|  Actions 							|
 |----------------	|----------							|
 | `make`      	 	| Compile .c and create libft.a  	|
