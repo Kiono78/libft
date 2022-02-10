@@ -5,53 +5,84 @@
 #                                                     +:+ +:+         +:+      #
 #    By: bterral <bterral@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/11/06 12:47:43 by bterral           #+#    #+#              #
-#    Updated: 2021/11/22 10:01:15 by bterral          ###   ########lyon.fr    #
+#    Created: 2021/11/23 10:52:39 by bterral           #+#    #+#              #
+#    Updated: 2022/02/10 13:28:17 by bterral          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME			= pipex
 
-SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
-		ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c \
-		ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c \
-		ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c \
-		ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c \
-		ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c \
-		ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
+NAME_BONUS		= pipex_bonus
 
-OBJS = ${SRCS:.c=.o}
+LIBFT			= libft/libft.a
 
-SRCS_BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
-				ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
+SRCS			= pipex.c	children_processes.c	error.c
 
-OBJS_BONUS = ${SRCS_BONUS:.c=.o}
+SRCS_BONUS		= pipex_bonus.c	children_processes_bonus.c	error_bonus.c
 
-CC = gcc
+OBJS			= ${addprefix ${OBJD},${SRCS:.c=.o}}
 
-CFLAGS = -Wall -Wextra -Werror
+OBJS_BONUS		= ${addprefix ${OBJD_BONUS},${SRCS_BONUS:.c=.o}}
 
-AR = ar rcs
+SRCD			= srcs/
 
-RM = rm -f
+SRCD_BONUS		= srcs_bonus/
 
-all: ${NAME}
+OBJD			= .obj/
 
-%.o: %.c libft.h
-	${CC} ${CFLAGS} -c -o $@ $<
+OBJD_BONUS		= .obj_bonus/
 
-bonus : ${OBJS} ${OBJS_BONUS}
-	${AR} ${NAME} ${OBJS_BONUS}
+INCLUDES		= includes/pipex.h
 
-${NAME}: ${OBJS}
-	${AR} ${NAME} ${OBJS}
+INCLUDES_BONUS	= includes_bonus/pipex_bonus.h
 
+INCLUDESD		= includes/
+
+INCLUDESD_BONUS	= includes_bonus/
+
+INCLUDES_LIBFT	= libft/libft.h
+
+INCLUDES_LIBFTD	= libft
+
+CC				= gcc
+
+CFLAGS			= -Wall -Wextra -Werror
+
+all: $(LIBFT) ${NAME}
+
+bonus: ${NAME_BONUS}
+
+${NAME}: ${OBJS} ${LIBFT}
+	${CC} ${CFLAGS} ${OBJS} ${LIBFT} -o ${NAME}
+
+${OBJD}%.o: ${SRCD}%.c ${INCLUDES} ${INCLUDES_LIBFT} | ${OBJD}
+	${CC} ${CFLAGS} -I $(INCLUDESD) -I ${INCLUDES_LIBFTD} -c $< -o $@ 
+
+${NAME_BONUS}: ${OBJS_BONUS} ${LIBFT}
+	${CC} ${CFLAGS} ${OBJS_BONUS} ${LIBFT} -o ${NAME_BONUS}
+
+${OBJD_BONUS}%.o: ${SRCD_BONUS}%.c ${INCLUDES_BONUS} ${INCLUDES_LIBFT} | ${OBJD_BONUS}
+	${CC} ${CFLAGS} -I ${INCLUDESD_BONUS} -I ${INCLUDES_LIBFTD} -c $< -o $@
+
+${OBJD}:
+	mkdir -p $@
+
+${OBJD_BONUS}:
+	mkdir -p $@
+
+$(LIBFT):
+	$(MAKE) -C libft/
+    
 clean:
-	${RM} ${OBJS} ${OBJS_BONUS}
+	rm -rf ${OBJD}
+	rm -rf ${OBJD_BONUS}
+	$(MAKE) clean -C libft/
 
 fclean: clean
-	${RM} ${NAME}
+	rm -f ${NAME}
+	rm -f ${NAME_BONUS}
+	$(MAKE) fclean -C libft/
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all lib clean fclean re
